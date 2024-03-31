@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Resident {
+    id               Int       @id @default(autoincrement())
+    name             String
+    email            String    @unique
+    apartment        String
+    passwordHash     String
+    packages         Package[]
+    messagesSent     Message[] @relation("MessageSender")
+    messagesReceived Message[] @relation("MessageReceiver")
+}
+
+model Package {
+    id          Int      @id @default(autoincrement())
+    description String
+    status      String // Examples: "Received", "Picked Up"
+    residentId  Int
+    Resident    Resident @relation(fields: [residentId], references: [id])
+    createdAt   DateTime @default(now())
+}
+
+model Message {
+    id         Int      @id @default(autoincrement())
+    content    String
+    createdAt  DateTime @default(now())
+    senderId   Int
+    receiverId Int
+    sender     Resident @relation("MessageSender", fields: [senderId], references: [id])
+    receiver   Resident @relation("MessageReceiver", fields: [receiverId], references: [id])
+}
+
+// Existing models: Receptionist, PunchIn, ShiftSchedule
+
+model Receptionist {
+    id       Int             @id @default(autoincrement())
+    name     String
+    email    String          @unique
+    punchIns PunchIn[]
+    shifts   ShiftSchedule[]
+}
+
+model PunchIn {
+    id             Int          @id @default(autoincrement())
+    dateTimeIn     DateTime
+    dateTimeOut    DateTime?
+    receptionistId Int
+    Receptionist   Receptionist @relation(fields: [receptionistId], references: [id])
+
+    @@map(name: "punch_ins")
+}
+
+model ShiftSchedule {
+    id             Int          @id @default(autoincrement())
+    shiftStart     DateTime
+    shiftEnd       DateTime
+    receptionistId Int
+    Receptionist   Receptionist @relation(fields: [receptionistId], references: [id])
+
+    @@map(name: "shift_schedules")
+}
