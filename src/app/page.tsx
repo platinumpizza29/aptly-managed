@@ -1,5 +1,6 @@
-import { auth, SignInButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import Navbar from "./components/navbar";
 
 export default function HomePage() {
   const { userId } = auth();
@@ -10,10 +11,7 @@ export default function HomePage() {
 
   return (
     <main className="min-w-screen min-h-screen">
-      <div className="navbar bg-base-100 flex flex-row items-center justify-between">
-        <a className="btn btn-ghost text-xl">Aptly</a>
-        <SignInButton redirectUrl="/home" />
-      </div>
+      <Navbar />
     </main>
   );
 }

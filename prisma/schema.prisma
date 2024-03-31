@@ -10,16 +10,35 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+model Building {
+    id        Int                @id @default(autoincrement())
+    name      String
+    address   String
+    residents ResidentBuilding[]
+}
+
 model Resident {
-    id               Int       @id @default(autoincrement())
+    id               Int                @id @default(autoincrement())
     name             String
-    email            String    @unique
+    email            String             @unique
     apartment        String
     passwordHash     String
+    buildings        ResidentBuilding[]
     packages         Package[]
-    messagesSent     Message[] @relation("MessageSender")
-    messagesReceived Message[] @relation("MessageReceiver")
+    messagesSent     Message[]          @relation("MessageSender")
+    messagesReceived Message[]          @relation("MessageReceiver")
 }
+
+model ResidentBuilding {
+    buildingId Int
+    residentId Int
+    building   Building @relation(fields: [buildingId], references: [id])
+    resident   Resident @relation(fields: [residentId], references: [id])
+
+    @@id([buildingId, residentId])
+}
+
+// The Package and Message models remain the same as previously defined
 
 model Package {
     id          Int      @id @default(autoincrement())
