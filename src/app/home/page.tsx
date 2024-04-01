@@ -3,6 +3,7 @@ import { RiMenu2Fill } from "react-icons/ri";
 import Stats from "../components/stats";
 import { BsCalendar2Day } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
+import { RxDoubleArrowRight } from "react-icons/rx";
 
 export default function HomePage() {
   return (
@@ -32,18 +33,20 @@ export default function HomePage() {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+          <ul className="menu min-h-full w-80 bg-base-200 p-4 text-base-content">
             {/* Sidebar content here */}
             <li>
               <a>
                 <LuLayoutDashboard className="text-xl" />
                 Dashboard
+                <RxDoubleArrowRight className="text-xl" />
               </a>
             </li>
             <li>
               <a>
                 <BsCalendar2Day className="text-xl" />
                 Calender
+                <RxDoubleArrowRight className="text-xl" />
               </a>
             </li>
           </ul>
