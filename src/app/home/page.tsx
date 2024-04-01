@@ -4,6 +4,7 @@ import Stats from "../components/stats";
 import { BsCalendar2Day } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { RxDoubleArrowRight } from "react-icons/rx";
+import ConciergeDairy from "../components/conciergeDairy";
 
 export default function HomePage() {
   return (
@@ -25,6 +26,10 @@ export default function HomePage() {
           </div>
           <section className="p-4">
             <Stats />
+          </section>
+          {/* different cards starts here */}
+          <section className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3">
+            <ConciergeDairy />
           </section>
         </div>
         <div className="drawer-side">

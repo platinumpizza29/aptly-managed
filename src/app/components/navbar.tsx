@@ -1,5 +1,4 @@
 import { auth, SignInButton, UserButton } from "@clerk/nextjs";
-import { RiMenu2Fill } from "react-icons/ri";
 
 export default function Navbar() {
   const { userId } = auth();
@@ -7,7 +6,7 @@ export default function Navbar() {
   if (!userId) {
     return (
       <main className="">
-        <div className="navbar bg-base-100 flex flex-row items-center justify-between">
+        <div className="navbar flex flex-row items-center justify-between bg-base-100">
           <a className="btn btn-ghost text-xl">Aptly</a>
           <SignInButton redirectUrl="/home" />
         </div>
@@ -16,7 +15,7 @@ export default function Navbar() {
   } else {
     return (
       <main className="">
-        <div className="navbar bg-base-100 flex flex-row items-center justify-between">
+        <div className="navbar flex flex-row items-center justify-between bg-base-100">
           <a className="btn btn-ghost text-xl">Aptly</a>
           <UserButton />
         </div>
